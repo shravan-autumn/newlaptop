@@ -1,0 +1,35 @@
+package Tests;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import genericUtility.BaseClass;
+import pomScripts.cartDrawer;
+import pomScripts.homePage;
+import pomScripts.loginPage;
+import pomScripts.productDetailsPage;
+import pomScripts.productListingPage;
+
+public class CartTest extends BaseClass {
+
+	loginPage lp;
+	homePage hp;
+	productDetailsPage pdp;
+	productListingPage plp;
+
+	// case 1: verify if empty cart is redirected to collections page
+	@Test(priority = 1)
+	public void emptyCart() {
+		lp = new loginPage(driver);
+		hp = new homePage(driver);
+		lp.goToWebsite();
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickContinueShopping();
+		String expected = "https://nexxus.in/collections/all";
+		String actual = driver.getCurrentUrl();
+		Assert.assertEquals(expected, actual, "user fails to redirect to collections page");
+
+	}
+
+}

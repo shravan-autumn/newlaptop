@@ -1,0 +1,7 @@
+<!-- Source: https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+<dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>6.3.3</version>
+    <scope>compile</scope>
+</dependency>

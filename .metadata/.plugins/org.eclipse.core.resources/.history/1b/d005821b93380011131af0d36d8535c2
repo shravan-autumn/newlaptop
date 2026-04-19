@@ -1,0 +1,178 @@
+package pomScripts;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import genericUtility.BaseClass;
+import genericUtility.webdriverUtility;
+
+public class cartDrawer extends BaseClass {
+	WebDriver driver;
+	WebDriverWait wait;
+
+	public cartDrawer(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	}
+
+	@FindBy(xpath = "//a[contains(@class,'cart-item__name')]")
+	private WebElement productTitleCartDrawer;
+	@FindBy(xpath = "//button[@class='drawer__close']")
+	private WebElement closeCartDrawerButton;
+
+	public WebElement getCloseCartDrawerButton() {
+		return closeCartDrawerButton;
+	}
+
+	public void setCloseCartDrawerButton(WebElement closeCartDrawerButton) {
+		this.closeCartDrawerButton = closeCartDrawerButton;
+	}
+
+	public WebElement getProductTitleCartDrawer() {
+		return productTitleCartDrawer;
+	}
+
+	public void setProductTitleCartDrawer(WebElement productTitleCartDrawer) {
+		this.productTitleCartDrawer = productTitleCartDrawer;
+	}
+
+	public void closeCartDrawer() {
+		webdriverUtility.waitUntilClickable(getCloseCartDrawerButton());
+		closeCartDrawerButton.click();
+	}
+
+	public void cartElementvisiblityAndScroll() throws Exception {
+		webdriverUtility.waitUntilElementIsVisible(getProductTitleCartDrawer());
+		Thread.sleep(2000);
+		webdriverUtility.scrollToElement(driver, getProductTitleCartDrawer());
+	}
+
+	// empty cart continue shopping button
+	@FindBy(xpath = "//a[@class='button']")
+	private WebElement continueShoppingButton;
+
+	public WebElement getContinueShoppingButton() {
+		return continueShoppingButton;
+	}
+
+	public void setContinueShoppingButton(WebElement continueShoppingButton) {
+		this.continueShoppingButton = continueShoppingButton;
+	}
+
+	@FindBy(xpath = "//a[contains(text(),'Log in')]")
+	private WebElement loginLinkCartDrawer;
+
+	public WebElement getLoginLinkCartDrawer() {
+		return loginLinkCartDrawer;
+	}
+
+	public void setLoginLinkCartDrawer(WebElement loginLinkCartDrawer) {
+		this.loginLinkCartDrawer = loginLinkCartDrawer;
+	}
+
+	public void clickLoginLinkCartDrawer() {
+		wait.until(ExpectedConditions.elementToBeClickable(loginLinkCartDrawer));
+		loginLinkCartDrawer.click();
+	}
+
+	public void clickContinueShopping() {
+		wait.until(ExpectedConditions.elementToBeClickable(continueShoppingButton)).click();
+	}
+
+	public void closeCartDrawerButton() {
+		By closeBtn = By.xpath("//button[@class='drawer__close']");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(closeBtn)).click();
+	}
+
+	@FindBy(xpath = "//button[contains(text(),'Checkout')]")
+	private WebElement checkoutButtonCartDrawer;
+
+	public WebElement getCheckoutButtonCartDrawer() {
+		return checkoutButtonCartDrawer;
+	}
+
+	public void setCheckoutButtonCartDrawer(WebElement checkoutButtonCartDrawer) {
+		this.checkoutButtonCartDrawer = checkoutButtonCartDrawer;
+	}
+
+	@FindBy(xpath = "//p[@class='totals__total-value']")
+	private WebElement totalPrice;
+
+	public WebElement getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(WebElement totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	@FindBy(xpath = "//button[@class='button button--tertiary cart-remove-button']")
+	private WebElement deleteProduct;
+	@FindBy(xpath = "//span[@class='cart-drawer-items-count']")
+	private WebElement cartItemsCount1;
+	@FindBy(xpath = "//span[contains(@class,'cart-drawer-items')]")
+	private WebElement cartItemsCount2;	
+	public WebElement getCartItemsCount1() {
+		return cartItemsCount1;
+	}
+
+	public void setCartItemsCount1(WebElement cartItemsCount1) {
+		this.cartItemsCount1 = cartItemsCount1;
+	}
+
+	public WebElement getCartItemsCount2() {
+		return cartItemsCount2;
+	}
+
+	public void setCartItemsCount2(WebElement cartItemsCount2) {
+		this.cartItemsCount2 = cartItemsCount2;
+	}
+
+	@FindBy(xpath = "//span[@class='free-badge']//ancestor::div[@class='cart-item']//span[@class='cart-item__name h4 break']")
+	private List<WebElement> freeProductName;
+	@FindBy(xpath = "//button[@id='CartDrawer-Checkout']")
+	private WebElement checkoutButton;
+
+	public WebElement getDeleteProduct() {
+		return deleteProduct;
+	}
+
+	public void setDeleteProduct(WebElement deleteProduct) {
+		this.deleteProduct = deleteProduct;
+	}
+
+	
+
+	public List<WebElement> getFreeProductName() {
+		return freeProductName;
+	}
+
+	public void setFreeProductName(List<WebElement> freeProductName) {
+		this.freeProductName = freeProductName;
+	}
+
+	public WebElement getCheckoutButton() {
+		return checkoutButton;
+	}
+
+	public void setCheckoutButton(WebElement checkoutButton) {
+		this.checkoutButton = checkoutButton;
+	}
+
+	public void clickRemoveProductFromCartDrawer() {
+	    By deleteBtn = By.xpath("//button[@class='button button--tertiary cart-remove-button']");   
+	    wait.until(ExpectedConditions.elementToBeClickable(deleteBtn));
+	    wait.until(ExpectedConditions.elementToBeClickable(deleteBtn)).click();
+	}
+}

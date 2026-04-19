@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="2" total="4" passed="2" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-01-12T19:27:20 IST" name="Suite" finished-at="2026-01-12T19:27:20 IST" duration-ms="78">
+    <groups>
+      <group name="smoke">
+        <method signature="pra1.test()[pri:0, instance:testNG.pra1@7b2bbc3]" name="test" class="testNG.pra1"/>
+        <method signature="pra2.pc()[pri:0, instance:testNG.pra2@128d2484]" name="pc" class="testNG.pra2"/>
+      </group> <!-- smoke -->
+    </groups>
+    <test started-at="2026-01-12T19:27:20 IST" name="Test" finished-at="2026-01-12T19:27:20 IST" duration-ms="78">
+      <class name="testNG.pra2">
+        <test-method signature="pc()[pri:0, instance:testNG.pra2@128d2484]" started-at="2026-01-12T19:27:20 IST" name="pc" finished-at="2026-01-12T19:27:20 IST" duration-ms="12" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- pc -->
+      </class> <!-- testNG.pra2 -->
+      <class name="testNG.pra1">
+        <test-method signature="test()[pri:0, instance:testNG.pra1@7b2bbc3]" started-at="2026-01-12T19:27:20 IST" name="test" finished-at="2026-01-12T19:27:20 IST" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+      </class> <!-- testNG.pra1 -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
+</testng-results>

@@ -1,0 +1,534 @@
+package pomScripts;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.github.javafaker.Faker;
+
+import genericUtility.BaseClass;
+import genericUtility.webdriverUtility;
+import net.bytebuddy.asm.MemberSubstitution.FieldValue;
+
+public class homePage extends BaseClass {
+
+	public homePage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	}
+
+	@FindBy(xpath = "//a[contains(@class,'header__icon--account link focus-inset')]")
+	private WebElement accountLink;
+
+	@FindBy(xpath = "//div[@class='header__heading-logo-wrapper']")
+	private WebElement logo;
+
+	public WebElement getAccountLink() {
+		return accountLink;
+	}
+
+	public void setAccountLink(WebElement accountLink) {
+		this.accountLink = accountLink;
+	}
+
+	public WebElement getLogo() {
+		return logo;
+	}
+
+	public void setLogo(WebElement logo) {
+		this.logo = logo;
+	}
+
+	@FindBy(xpath = "//p[@class='announcement-bar__message h5']")
+	private WebElement announcementBar;
+	@FindBy(id = "HeaderMenu-our-products")
+	private WebElement ourProductsMenu;
+	@FindBy(id = "HeaderMenu-our-products-by-collection-shop-all")
+	private WebElement shopAllProducts;
+	@FindBy(id = "HeaderMenu-our-products-by-category-oil")
+	private WebElement oilCategory;
+	@FindBy(xpath = "//span[@id='HeaderMenu-our-products-by-category']//parent::li//a")
+	private List<WebElement> ourProductsCategory;
+	@FindBy(id = "HeaderMenu-gifting")
+	private WebElement giftingMenu;
+	@FindBy(id = "HeaderMenu-about-us")
+	private WebElement aboutUsMenu;
+	@FindBy(id = "HeaderMenu-track-order")
+	private WebElement trackOrderMenu;
+	@FindBy(xpath = "//details-modal[@class='header__search']")
+	private WebElement searchIcon;
+	@FindBy(xpath = "//a[contains(@class,'header__icon header__icon--a')]")
+	private WebElement accountIcon;
+	@FindBy(xpath = "//a[contains(@class,'header__icon header__icon--c')]")
+	private WebElement cartIcon;
+	@FindBy(xpath = "//input[@name='q']")
+	private WebElement searchInputField;
+	@FindBy(xpath = "//h2[@class='cart__empty-text']")
+	private WebElement emptyCartMessage;
+	@FindBy(xpath = "(//button[@class='search__button field__button'])[1]")
+	private WebElement searchButton;
+	
+	public WebElement getSearchButton() {
+		return searchButton;
+	}
+
+	public void setSearchButton(WebElement searchButton) {
+		this.searchButton = searchButton;
+	}
+
+	public void setCookieNoticeLink(WebElement cookieNoticeLink) {
+		this.cookieNoticeLink = cookieNoticeLink;
+	}
+
+	public void setCautionNoticeHeading(WebElement cautionNoticeHeading) {
+		this.cautionNoticeHeading = cautionNoticeHeading;
+	}
+
+	public WebElement getOilCategory() {
+		return oilCategory;
+	}
+
+	public void setOilCategory(WebElement oilCategory) {
+		this.oilCategory = oilCategory;
+	}
+
+	public List<WebElement> getOurProductsCategory() {
+		return ourProductsCategory;
+	}
+
+	public void setOurProductsCategory(List<WebElement> ourProductsCategory) {
+		this.ourProductsCategory = ourProductsCategory;
+	}
+
+	public WebElement getAnnouncementBar() {
+		return announcementBar;
+	}
+
+	public void setAnnouncementBar(WebElement announcementBar) {
+		this.announcementBar = announcementBar;
+	}
+
+	public WebElement getOurProductsMenu() {
+		return ourProductsMenu;
+	}
+
+	public void setOurProductsMenu(WebElement ourProductsMenu) {
+		this.ourProductsMenu = ourProductsMenu;
+	}
+
+	public WebElement getShopAllProducts() {
+		return shopAllProducts;
+	}
+
+	public void setShopAllProducts(WebElement shopAllProducts) {
+		this.shopAllProducts = shopAllProducts;
+	}
+
+	public WebElement getGiftingMenu() {
+		return giftingMenu;
+	}
+
+	public void setGiftingMenu(WebElement giftingMenu) {
+		this.giftingMenu = giftingMenu;
+	}
+
+	public WebElement getAboutUsMenu() {
+		return aboutUsMenu;
+	}
+
+	public void setAboutUsMenu(WebElement aboutUsMenu) {
+		this.aboutUsMenu = aboutUsMenu;
+	}
+
+	public WebElement getTrackOrderMenu() {
+		return trackOrderMenu;
+	}
+
+	public void setTrackOrderMenu(WebElement trackOrderMenu) {
+		this.trackOrderMenu = trackOrderMenu;
+	}
+
+	public WebElement getSearchIcon() {
+		return searchIcon;
+	}
+
+	public void setSearchIcon(WebElement searchIcon) {
+		this.searchIcon = searchIcon;
+	}
+
+	public WebElement getAccountIcon() {
+		return accountIcon;
+	}
+
+	public void setAccountIcon(WebElement accountIcon) {
+		this.accountIcon = accountIcon;
+	}
+
+	public WebElement getCartIcon() {
+		return cartIcon;
+	}
+
+	public void setCartIcon(WebElement cartIcon) {
+		this.cartIcon = cartIcon;
+	}
+
+	public WebElement getSearchInputField() {
+		return searchInputField;
+	}
+
+	public void setSearchInputField(WebElement searchInputField) {
+		this.searchInputField = searchInputField;
+	}
+
+	public WebElement getEmptyCartMessage() {
+		return emptyCartMessage;
+	}
+
+	public void setEmptyCartMessage(WebElement emptyCartMessage) {
+		this.emptyCartMessage = emptyCartMessage;
+	}
+
+	public void clickAnnouncementBar() {
+		announcementBar.click();
+	}
+
+	public void clickMegamenuLink() {
+		ourProductsMenu.click();
+		oilCategory.click();
+	}
+
+	public void clickMegamenuAboutUs() {
+		aboutUsMenu.click();
+	}
+
+	public void clickMegamenuGifting() {
+		giftingMenu.click();
+	}
+
+	public void clickaboutUs() {
+		aboutUsMenu.click();
+	}
+
+	public void clickTrackOrder() {
+		trackOrderMenu.click();
+	}
+
+	public void clickSearchIcon() {
+		searchIcon.click();
+	}
+
+	public void clickAccountIcon() {
+		accountIcon.click();
+	}
+
+	public void clickCartIcon() {
+		cartIcon.click();
+	}
+
+	@FindBy(xpath = "//a[contains(text(),'Shop Now')]")
+	private WebElement heroBannerShopNowButton;
+
+	public WebElement getHeroBannerShopNowButton() {
+		return heroBannerShopNowButton;
+	}
+
+	public void setHeroBannerShopNowButton(WebElement heroBannerShopNowButton) {
+		this.heroBannerShopNowButton = heroBannerShopNowButton;
+	}
+
+	public void clickHeroBannerShopNowButton() {
+		heroBannerShopNowButton.click();
+	}
+
+	// Bestsellers section
+	@FindBy(xpath = "//div[@class='collection section-template--19761833738482__custom_featured_collection_ByqPXm-padding  page-width ']//h3")
+	private List<WebElement> bestsellersProductNames;
+	@FindBy(xpath = "//select[@name='option-size']")
+	private WebElement bestsellersVariantDropdown;
+	@FindBy(xpath = "//button[@name='add']")
+	private WebElement bestsellersAddToCartButton;
+
+	public List<WebElement> getBestsellersProductNames() {
+		return bestsellersProductNames;
+	}
+
+	public void setBestsellersProductNames(List<WebElement> bestsellersProductNames) {
+		this.bestsellersProductNames = bestsellersProductNames;
+	}
+
+	public WebElement getBestsellersVariantDropdown() {
+		return bestsellersVariantDropdown;
+	}
+
+	public void setBestsellersVariantDropdown(WebElement bestsellersVariantDropdown) {
+		this.bestsellersVariantDropdown = bestsellersVariantDropdown;
+	}
+
+	public WebElement getBestsellersAddToCartButton() {
+		return bestsellersAddToCartButton;
+	}
+
+	public void setBestsellersAddToCartButton(WebElement bestsellersAddToCartButton) {
+		this.bestsellersAddToCartButton = bestsellersAddToCartButton;
+	}
+
+	public void clickOnProductCard(int index) throws Exception {
+		webdriverUtility.scrollToElement(driver, getBestsellersProductNames().get(0));
+		bestsellersProductNames.get(index).click();
+	}
+	public void selectVariantAndAddToCart() throws Exception {
+		webdriverUtility.scrollToElement(driver, bestsellersVariantDropdown);
+		bestsellersVariantDropdown.click();
+		webdriverUtility.selectByIndex(bestsellersVariantDropdown, 1);
+		Thread.sleep(2000);
+		bestsellersAddToCartButton.click();
+	}
+	
+	@FindBy(xpath = "//h2[contains(text(),'PROTEOMIC + LIPIDOMIC BREAKTHROUGH')]//ancestor::section//snake-border-button")
+	private WebElement knowMoreButton;
+	@FindBy(xpath = "//h2[contains(text(),'DISCOVER THE COLLECTION')]//ancestor::div//snake-border-button")
+	private WebElement discoverNowButton;
+	@FindBy(xpath = "//h2[contains(text(),'Proven results')]")
+	private WebElement provenResultsSection;
+	@FindBy(xpath = "//h2[@class='testimonial-slider__section-heading']")
+	private WebElement reviewssSection;
+	@FindBy(xpath = "//a[contains(text(),'Find Nearby Salon')]")
+	private WebElement findNearbySalonButton;
+	@FindBy(xpath = "//a[contains(text(),'JOIN THE COMMUNITY')]")
+	private WebElement joinTheCommunityButton;
+	@FindBy(xpath = "//input[@type='email']")
+	private WebElement newsletterEmailInputField;
+	@FindBy(xpath = "//input[@id='consent-checkbox']")
+	private WebElement newsletterConsentCheckbox;
+	@FindBy(xpath = "//button[@id='Subscribe']")
+	private WebElement newsletterSubscribeButton;
+	@FindBy(xpath = "//span[contains(text(),'Facebook')]//ancestor::a")
+	private WebElement facebookIcon;
+	@FindBy(xpath = "//span[contains(text(),'Instagram')]//ancestor::a")
+	private WebElement instagramIcon;
+	@FindBy(xpath = "//span[contains(text(),'YouTube')]//ancestor::a")
+	private WebElement youtubeIcon;
+	@FindBy(xpath = "//li[@class='footer-item']")
+	private List<WebElement> footerLinks;
+	@FindBy(xpath = "//a[contains(text(),'PRIVACY NOTICE')]")
+	private WebElement privacyNoticeLink;
+	@FindBy(xpath = "//a[contains(text(),'COOKIE NOTICE')]")
+	private WebElement cookieNoticeLink;
+	@FindBy(xpath = "//h4[@class='notice-head']")
+	private WebElement cautionNoticeHeading;
+	@FindBy(xpath = "//p[@id='error-msg']")
+	private WebElement newsletterErrorMessage;
+	@FindBy(xpath = "//h3[@id='ContactFooter-success']")
+	private WebElement newsletterSuccessMessage;
+	
+
+	public WebElement getNewsletterErrorMessage() {
+		return newsletterErrorMessage;
+	}
+
+	public void setNewsletterErrorMessage(WebElement newsletterErrorMessage) {
+		this.newsletterErrorMessage = newsletterErrorMessage;
+	}
+
+	public WebElement getNewsletterSuccessMessage() {
+		return newsletterSuccessMessage;
+	}
+
+	public void setNewsletterSuccessMessage(WebElement newsletterSuccessMessage) {
+		this.newsletterSuccessMessage = newsletterSuccessMessage;
+	}
+
+	public WebElement getKnowMoreButton() {
+		return knowMoreButton;
+	}
+
+	public void setKnowMoreButton(WebElement knowMoreButton) {
+		this.knowMoreButton = knowMoreButton;
+	}
+
+	public WebElement getDiscoverNowButton() {
+		return discoverNowButton;
+	}
+
+	public void setDiscoverNowButton(WebElement discoverNowButton) {
+		this.discoverNowButton = discoverNowButton;
+	}
+
+	public WebElement getProvenResultsSection() {
+		return provenResultsSection;
+	}
+
+	public void setProvenResultsSection(WebElement provenResultsSection) {
+		this.provenResultsSection = provenResultsSection;
+	}
+
+	public WebElement getReviewssSection() {
+		return reviewssSection;
+	}
+
+	public void setReviewssSection(WebElement reviewssSection) {
+		this.reviewssSection = reviewssSection;
+	}
+
+	public WebElement getFindNearbySalonButton() {
+		return findNearbySalonButton;
+	}
+
+	public void setFindNearbySalonButton(WebElement findNearbySalonButton) {
+		this.findNearbySalonButton = findNearbySalonButton;
+	}
+
+	public WebElement getJoinTheCommunityButton() {
+		return joinTheCommunityButton;
+	}
+
+	public void setJoinTheCommunityButton(WebElement joinTheCommunityButton) {
+		this.joinTheCommunityButton = joinTheCommunityButton;
+	}
+
+	public WebElement getNewsletterEmailInputField() {
+		return newsletterEmailInputField;
+	}
+
+	public void setNewsletterEmailInputField(WebElement newsletterEmailInputField) {
+		this.newsletterEmailInputField = newsletterEmailInputField;
+	}
+
+	public WebElement getNewsletterConsentCheckbox() {
+		return newsletterConsentCheckbox;
+	}
+
+	public void setNewsletterConsentCheckbox(WebElement newsletterConsentCheckbox) {
+		this.newsletterConsentCheckbox = newsletterConsentCheckbox;
+	}
+
+	public WebElement getNewsletterSubscribeButton() {
+		return newsletterSubscribeButton;
+	}
+
+	public void setNewsletterSubscribeButton(WebElement newsletterSubscribeButton) {
+		this.newsletterSubscribeButton = newsletterSubscribeButton;
+	}
+
+	public WebElement getFacebookIcon() {
+		return facebookIcon;
+	}
+
+	public void setFacebookIcon(WebElement facebookIcon) {
+		this.facebookIcon = facebookIcon;
+	}
+
+	public WebElement getInstagramIcon() {
+		return instagramIcon;
+	}
+
+	public void setInstagramIcon(WebElement instagramIcon) {
+		this.instagramIcon = instagramIcon;
+	}
+
+	public WebElement getYoutubeIcon() {
+		return youtubeIcon;
+	}
+
+	public void setYoutubeIcon(WebElement youtubeIcon) {
+		this.youtubeIcon = youtubeIcon;
+	}
+
+	public List<WebElement> getFooterLinks() {
+		return footerLinks;
+	}
+
+	public void setFooterLinks(List<WebElement> footerLinks) {
+		this.footerLinks = footerLinks;
+	}
+
+	public WebElement getPrivacyNoticeLink() {
+		return privacyNoticeLink;
+	}
+
+	public void setPrivacyNoticeLink(WebElement privacyNoticeLink) {
+		this.privacyNoticeLink = privacyNoticeLink;
+	}
+
+	public WebElement getCookieNoticeLink() {
+		return cookieNoticeLink;
+	}
+
+	public void setCautionNoticeLink(WebElement cookieNoticeLink) {
+		this.cookieNoticeLink = cookieNoticeLink;
+	}
+
+	public WebElement getCautionNoticeHeading() {
+		return cautionNoticeHeading;
+	}
+
+	public void setCookieNoticeHeading(WebElement cookieNoticeHeading) {
+		this.cautionNoticeHeading = cookieNoticeHeading;
+	}
+	
+	public void clickKnowMoreButton() {
+		webdriverUtility.scrollToElement(driver, knowMoreButton);
+		knowMoreButton.click();
+	}
+	public void provenResultsSectionVisibility() {
+		webdriverUtility.scrollToElement(driver, provenResultsSection);
+	}
+	public void clickDiscoverNowButton() {
+		webdriverUtility.scrollToElement(driver, discoverNowButton);
+		discoverNowButton.click();
+	}
+	public void reviewsSectionVisibility() {
+		webdriverUtility.scrollToElement(driver, reviewssSection);
+	}
+	public void clickFindNearbySalonButton() {
+		webdriverUtility.scrollToElement(driver, findNearbySalonButton);
+		findNearbySalonButton.click();
+	}
+	public void clickJoinTheCommunityButton() {
+		webdriverUtility.scrollToElement(driver, joinTheCommunityButton);
+		joinTheCommunityButton.click();
+	}
+	public void subscribeToNewsletterWithValidEmail() {
+		webdriverUtility.scrollToElement(driver, newsletterEmailInputField);
+		Faker f = new Faker();	
+		String email = f.internet().emailAddress();
+		newsletterEmailInputField.sendKeys(email);
+		newsletterConsentCheckbox.click();
+		newsletterSubscribeButton.click();
+	}
+	
+	public void subscribeToNewsletterWithInvalidEmail() {
+		webdriverUtility.scrollToElement(driver, newsletterEmailInputField);
+		newsletterSubscribeButton.click();
+	}
+	public void clickFacebookIcon() {
+		webdriverUtility.scrollToElement(driver, facebookIcon);
+		facebookIcon.click();
+		
+	}
+	public void clickInstagramIcon() {
+		webdriverUtility.scrollToElement(driver, instagramIcon);
+		instagramIcon.click();
+		
+	}
+	public void clickYoutubeIcon() {
+		webdriverUtility.scrollToElement(driver, youtubeIcon);
+		youtubeIcon.click();
+		
+	}
+	public void cautionNoticeVisibility() {
+		webdriverUtility.scrollToElement(driver, privacyNoticeLink);
+	}
+	
+	public void waitunitlelementIsVisible(WebElement element) {
+		webdriverUtility.waitUntilElementIsVisible(element);
+	}
+}

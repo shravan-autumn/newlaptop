@@ -1,0 +1,105 @@
+package Tests;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import genericUtility.BaseClass;
+import genericUtility.webdriverUtility;
+import pomScripts.cartDrawer;
+import pomScripts.homePage;
+import pomScripts.loginPage;
+import pomScripts.productDetailsPage;
+import pomScripts.productListingPage;
+
+public class ProductdetailspageTest extends BaseClass {
+
+	loginPage lp;
+	homePage hp;
+	productDetailsPage pdp;
+	productListingPage plp;
+	cartDrawer c;
+
+	// Case 1: Verify if user is able to navigate to PDP by clicking on product in
+	// search PLP page
+	@Test(priority = 1)
+	public void hpToPdpNavigation() throws Exception {
+		pdp = new productDetailsPage(driver);
+		String search = "oil";
+		String productName = "PROMEND OIL RESURRECTION";
+		pdp.searchForAProductAndNavigateToPDP(search, productName);
+		String productActual = pdp.getProductTitle().getText();
+		Assert.assertEquals(productActual.toLowerCase(), productName.toLowerCase());
+
+	}
+
+	// Case 2: Verify if user is able to click on view collection link and navigate
+	// to PLP page
+	@Test(priority = 2)
+	public void viewCollectionLinkNavigation() throws Exception {
+		pdp.clickOnViewCollectionLink();
+		String expectedUrl = "https://nexxus.in/collections/all-products";
+		String actualUrl = driver.getCurrentUrl();
+		Assert.assertEquals(actualUrl, expectedUrl);
+		driver.navigate().back();
+	}
+
+	// Case 3: Verify if user is able to click on write a review link and close the
+	// review pop up
+	@Test(priority = 3)
+	public void writeAReviewLinkFunctionality() throws Exception {
+		pdp.clickOnWriteAReviewLink();
+		Assert.assertTrue(pdp.getReviewCloseXButton().isDisplayed());
+		pdp.closeReviewPopUp();
+	}
+
+	// Case 4: Verify if user is able to add product to cart from PDP page
+	@Test(priority = 4)
+	public void addToCartFromPDP() throws Exception {
+		String product = pdp.getProductTitle().getText();
+		pdp.addToCartFromPDP();
+		c = new cartDrawer(driver);
+		c.cartElementvisiblityAndScroll();
+		String cartPro = c.getProductTitleCartDrawer().getText();
+		Assert.assertEquals(cartPro.toLowerCase(), product.toLowerCase(),
+				"Product in cart drawer is not same as the one added to cart");
+		c.getCloseCartDrawerButton();
+	}
+// unable to automate increase/decrease quantity as the locator values fail to update in DOM on click of + or - button and hence the element is not interactable
+
+	// Case 5: Verify pincode check functionality in PDP page
+	@Test(priority = 5)
+	public void pincodeCheckFunctionality() throws Exception {
+		pdp.validPincode();
+		boolean actualMessage = pdp.getPincodeSuccessMessage().isDisplayed();
+		Assert.assertTrue(actualMessage);
+	}
+
+	// Case 6: Verify if proven results section is present in PDP page
+	@Test(priority = 6)
+	public void provenResultsSectionVisibility() throws Exception {
+		pdp.scrollToProvenResultsSection();
+		Assert.assertTrue(pdp.getProvenResultsSection().isDisplayed(),
+				"Proven results section is not visible in PDP page");
+	}
+
+	// case 7: Verify if customer reviews section is present in PDP page
+	@Test(priority = 7)
+	public void customerReviewsSectionVisibility() throws Exception {
+		pdp.scrollToReviewSection();
+		Assert.assertTrue(pdp.getReviewSection().isDisplayed(), "Customer reviews section is not visible in PDP page");
+	}
+
+	// Case 8: Verify if pair well section is present in PDP page
+	@Test(priority = 8)
+	public void pairWellSectionVisibility() throws Exception {
+		pdp.scrollToPairsWellSection();
+		Assert.assertTrue(pdp.getPairsWellSection().isDisplayed(), "Pair well section is not visible in PDP page");
+	}
+
+	// Case 9: Verify if FAQ section is present in PDP page
+	@Test(priority = 9)
+	public void faqSectionVisibility() throws Exception {
+		pdp.scrollToFaqsSection();
+		Assert.assertTrue(pdp.getFaqsSection().isDisplayed(), "FAQ section is not visible in PDP page");
+	}
+}

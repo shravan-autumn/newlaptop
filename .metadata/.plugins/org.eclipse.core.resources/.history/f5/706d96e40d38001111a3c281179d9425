@@ -1,0 +1,97 @@
+package Tests;
+
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import genericUtility.BaseClass;
+import genericUtility.webdriverUtility;
+import pomScripts.cartDrawer;
+import pomScripts.homePage;
+import pomScripts.loginPage;
+import pomScripts.productDetailsPage;
+import pomScripts.productListingPage;
+
+public class CartTest extends BaseClass {
+
+	loginPage lp;
+	homePage hp;
+	productDetailsPage pdp;
+	productListingPage plp;
+	cartDrawer c;
+
+	// case 1: verify if empty cart is redirected to collections page
+	@Test(priority = 1)
+	public void emptyCart() {
+		lp = new loginPage(driver);
+		hp = new homePage(driver);
+		// lp.goToWebsite();
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickContinueShopping();
+		String expected = "https://nexxus.in/collections/all";
+		String actual = driver.getCurrentUrl();
+		Assert.assertEquals(expected, actual, "user fails to redirect to collections page");
+
+	}
+
+	// Case 2: Verify if user is able to click on login button from cart drawer and
+	// navigate to login page
+	@Test(priority = 2)
+	public void cartDrawerLoginButton() throws Exception {
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickLoginLinkCartDrawer();
+		String expectedUrl = "https://nexxus.in/account/login";
+		String actualUrl = driver.getCurrentUrl();
+		Assert.assertEquals(actualUrl, expectedUrl, "user fails to navigate to login page");
+
+	}
+
+	String product1price;
+	String product2price;
+
+	// case 3: Verify if user is able to add multiple product to cart from PDP page
+	@Test(priority = 3)
+	public void addToCartFromPDP() throws Exception {
+		lp = new loginPage(driver);
+		hp = new homePage(driver);
+		pdp = new productDetailsPage(driver);
+		String product = "PROMEND OIL RESURRECTION";
+		pdp.searchForAProductAndNavigateToPDP("oil", product);
+		product1price = pdp.getProductPrice().getText();
+		pdp.clickAddtoCart1();
+		Thread.sleep(2000);
+		cartDrawer c = new cartDrawer(driver);
+		webdriverUtility.waitUntilElementIsVisible(c.getCheckoutButtonCartDrawer());
+		String cartPro = c.getProductTitleCartDrawer().getText();
+		Assert.assertTrue(cartPro.toLowerCase().contains(product.toLowerCase()),
+				"Product in cart drawer is not same as the one added to cart");
+		cartDrawer c1 = new cartDrawer(driver);
+		Thread.sleep(2000);
+		c1.closeCartDrawerButton();
+		String product2 = "PROMEND REPAIR KERATINIZING SHAMPOO";
+		pdp.searchForAProductAndNavigateToPDP("shampoo", product2);
+		product2price = pdp.getProductPrice().getText();
+		pdp.clickAddtoCart2();
+		Thread.sleep(2000);
+		webdriverUtility.waitUntilElementIsVisible(c1.getCheckoutButtonCartDrawer());
+		String cartPro2 = c1.getProductTitleCartDrawer().getText();
+		Assert.assertTrue(cartPro2.toLowerCase().contains(product2.toLowerCase()),
+				"Product in cart drawer is not same as the one added to cart");
+		c.closeCartDrawerButton();
+	}
+
+	// Case4: Verify if cart price updates when user adds multiple quantity to cart
+	@Test(priority = 4)
+	public void priceUpdateVerification() throws InterruptedException {
+		cartDrawer c = new cartDrawer(driver);
+		String price = c.getTotalPrice().getText();
+		String sumof2products = "₹" + String.valueOf(Integer.parseInt(product1price) + Integer.parseInt(product2price));
+		Assert.assertEquals(price, sumof2products,
+				"Total price is not updated correctly when user adds multiple product to cart");
+		Thread.sleep(2000);
+
+	}
+
+}

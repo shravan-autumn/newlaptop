@@ -1,0 +1,39 @@
+package rahulshettySelenium;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ECOM {
+
+	private static final List<WebElement> Webelemet = null;
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		String[] itemsneeded = { "Cucumber", "Brocolli", "Beetroot" };//we can also fetch from excel
+		List<WebElement> all = driver.findElements(By.xpath("//h4[@class=\"product-name\"]"));
+		int j = 0; // we just want to iterate only for 3 products
+		for (int i = 0; i < all.size(); i++) {
+			
+			// Brocolli - 1Kg
+			String[] product = all.get(i).getText().split("-");
+			String product1 = product[0].trim();
+			// convert array into arraylist
+			List pro = Arrays.asList(itemsneeded);
+			if (pro.contains(product1)) {
+				j++;
+				driver.findElements(By.xpath("//div[@class=\"product-action\"]//button")).get(i).click();
+				// break;// break wont work when we have array> bcoz it will skip abruptly
+				if (j == itemsneeded.length) {
+					break;
+				}
+			}
+		}
+	}
+}

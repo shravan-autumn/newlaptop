@@ -1,0 +1,77 @@
+package Tests;
+
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import genericUtility.BaseClass;
+import genericUtility.webdriverUtility;
+import pomScripts.cartDrawer;
+import pomScripts.homePage;
+import pomScripts.loginPage;
+import pomScripts.productDetailsPage;
+import pomScripts.productListingPage;
+
+public class CartTest extends BaseClass {
+
+	loginPage lp;
+	homePage hp;
+	productDetailsPage pdp;
+	productListingPage plp;
+	cartDrawer c;
+
+	// case 1: verify if empty cart is redirected to collections page
+	@Test(priority = 1)
+	public void emptyCart() {
+		lp = new loginPage(driver);
+		hp = new homePage(driver);
+		//lp.goToWebsite();
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickContinueShopping();
+		String expected = "https://nexxus.in/collections/all";
+		String actual = driver.getCurrentUrl();
+		Assert.assertEquals(expected, actual, "user fails to redirect to collections page");
+
+	}
+	//Case 2: Verify if user is able to click on login button from cart drawer and navigate to login page
+	@Test(priority = 2)
+	public void cartDrawerLoginButton() throws Exception {
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickLoginLinkCartDrawer();
+		String expectedUrl = "https://nexxus.in/account/login";
+		String actualUrl = driver.getCurrentUrl();
+		Assert.assertEquals(actualUrl, expectedUrl, "user fails to navigate to login page");
+		
+	}
+	// case 3: Verify if user is able to add multiple product to cart from PDP page
+	@Test(priority = 3)
+	public void addToCartFromPDP() throws Exception {
+		pdp = new productDetailsPage(driver);
+		String search = "oil";
+		String productName = "PROMEND OIL RESURRECTION";
+		pdp.searchForAProductAndNavigateToPDP(search, productName);
+		String productActual = pdp.getProductTitle().getText();
+		pdp.addToCartFromPDP();
+		c = new cartDrawer(driver);
+		c.cartElementvisiblityAndScroll();
+		String cartPro = c.getProductTitleCartDrawer().getText();
+		Assert.assertEquals(cartPro.toLowerCase(), productActual.toLowerCase(),
+				"Product in cart drawer is not same as the one added to cart");
+		c.getCloseCartDrawerButton().click();
+		
+		String search2 = "shampoo";
+		String productName2 = "ROMEND REPAIR KERATINIZING SHAMPOO";
+		pdp.searchForAProductAndNavigateToPDP(search2, productName2);
+		String productActual2 = pdp.getProductTitle().getText();
+		pdp.addToCartFromPDP();
+		c = new cartDrawer(driver);
+		c.cartElementvisiblityAndScroll();
+		String cartPro2 = c.getProductTitleCartDrawer().getText();
+		Assert.assertEquals(cartPro2.toLowerCase(), productActual2.toLowerCase(),
+				"Product in cart drawer is not same as the one added to cart");
+		c.getCloseCartDrawerButton().click();
+	}
+
+}

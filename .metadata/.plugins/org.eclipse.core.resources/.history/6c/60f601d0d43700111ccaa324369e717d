@@ -1,0 +1,99 @@
+package Tests;
+
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import genericUtility.BaseClass;
+import genericUtility.webdriverUtility;
+import pomScripts.cartDrawer;
+import pomScripts.homePage;
+import pomScripts.loginPage;
+import pomScripts.productDetailsPage;
+import pomScripts.productListingPage;
+
+public class CartTest extends BaseClass {
+
+	loginPage lp;
+	homePage hp;
+	productDetailsPage pdp;
+	productListingPage plp;
+
+	// case 1: verify if empty cart is redirected to collections page
+	@Test(priority = 1)
+	public void emptyCart() {
+		lp = new loginPage(driver);
+		hp = new homePage(driver);
+		lp.goToWebsite();
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickContinueShopping();
+		String expected = "https://nexxus.in/collections/all";
+		String actual = driver.getCurrentUrl();
+		Assert.assertEquals(expected, actual, "user fails to redirect to collections page");
+
+	}
+	//Case 2: Verify if user is able to click on login button from cart drawer and navigate to login page
+	@Test(priority = 2)
+	public void cartDrawerLoginButton() throws Exception {
+		hp.clickCartIcon();
+		cartDrawer c = new cartDrawer(driver);
+		c.clickLoginLinkCartDrawer();
+		String expectedUrl = "https://nexxus.in/account/login";
+		String actualUrl = driver.getCurrentUrl();
+		Assert.assertEquals(actualUrl, expectedUrl, "user fails to navigate to login page");
+		
+	}
+//	// case 3: Verify if user is able to add multiple product to cart from PDP page
+//	@Test(priority = 3)
+//	public void addToCartFromPDP() throws InterruptedException {
+//		lp = new loginPage(driver);
+//		hp = new homePage(driver);
+//		hp.clickSearchIcon();
+//		hp.waitunitlelementIsVisible(hp.getSearchTextField());
+//		hp.getSearchTextField().sendKeys("hair");
+//		hp.clickSearchButton();
+//		plp = new productListingPage(driver);
+//		String product = "Onion, Black Seed Oil & Patchouli Hair Mask";
+//		for (WebElement ele : plp.getProductLinksSearchPLP()) {
+//			if (ele.getText().equalsIgnoreCase(product)) {
+//				ele.click();
+//				break;
+//			}
+//		}
+//		pdp = new productDetailsPage(driver);
+//		product1price = pdp.getProductPrice().getText();
+//		pdp.scrollToElement(pdp.getAddToCartButton());
+//		pdp.clickAddtoCart();
+//		cartDrawer c = new cartDrawer(driver);
+//		webdriverUtility.waitUntilElementIsVisible(c.getCheckoutButtonCartDrawer());
+//		String cartPro = c.getProductTitleCartDrawer().getText();
+//		Assert.assertEquals(cartPro.toLowerCase(), product.toLowerCase(),
+//				"Product in cart drawer is not same as the one added to cart");
+//		c.clickcloseCartDrawerButton();
+//		hp.clickLogo();
+//		hp.clickSearchIcon();
+//		webdriverUtility.waitUntilElementIsVisible(hp.getSearchTextField());
+//		hp.getSearchTextField().sendKeys("body");
+//		hp.clickSearchButton();
+//		plp = new productListingPage(driver);
+//		String product2 = "Coconut Water & Mimosa Flower Conditioner - 200 ml";
+//		for (WebElement ele1 : plp.getProductLinksSearchPLP()) {
+//			if (ele1.getText().equalsIgnoreCase(product2)) {
+//				webdriverUtility.toScrollToElement(ele1, driver);
+//				ele1.click();
+//				break;
+//			}
+//		}
+//		pdp = new productDetailsPage(driver);
+//		product2price = pdp.getProductPrice().getText();
+//		pdp.waitUntilElementIsVisible(pdp.getProductTitle());
+//		pdp.scrollToElement(pdp.getAddToCart2());
+//		pdp.clickAddtoCart2();
+//		c.waitUntilElementIsVisible(c.getCheckoutButtonCartDrawer());
+//		String cartPro1 = c.getProductTitleCartDrawer().getText();
+//		Assert.assertEquals(cartPro1.toLowerCase(), product2.toLowerCase(),
+//				"Product in cart drawer is not same as the one added to cart");
+//	}
+
+}

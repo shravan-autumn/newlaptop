@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;datadrivern&apos; to &apos;datadriven&apos;&#x0D;&#x0A;- Original project: &apos;rahulshettyFramework&apos;&#x0D;&#x0A;- Original element: &apos;rahulshettyFramework/src/test/java/datadrivern&apos;&#x0D;&#x0A;- Renamed element: &apos;rahulshettyFramework/src/test/java/datadriven&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;datadrivern&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/test\/java=/optional=/true=/=/maven.pomderived=/true=/=/test=/true=/&lt;datadrivern" name="datadriven" qualified="false" references="true" stamp="1768729071374" textual="false" version="1.0"/>
+</session>
